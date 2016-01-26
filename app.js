@@ -13,6 +13,7 @@ var app = express();
 
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+var multer  = require('multer');
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -35,6 +36,13 @@ app.use(session({
     host: settings.host,
     port: settings.port
   })
+}));
+
+app.use(multer({
+  dest: './public/images',
+  rename: function (fieldname, filename) {
+    return filename;
+  }
 }));
 
 routes(app);
