@@ -26,7 +26,7 @@ module.exports = function(app) {
         posts = [];
       } 
       res.render('index', {
-        title: '主页',
+        title: 'HOME',
         posts: posts,
         page: page,
         isFirstPage: (page - 1) == 0,
@@ -41,7 +41,7 @@ module.exports = function(app) {
   app.get('/reg', checkNotLogin);
   app.get('/reg', function (req, res) {
     res.render('reg', {
-      title: '注册',
+      title: 'Register',
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
@@ -83,7 +83,7 @@ module.exports = function(app) {
           return res.redirect('/reg');//注册失败返回主册页
         }
         req.session.user = newUser;//用户信息存入 session
-        req.flash('success', '注册成功!');
+        req.flash('success', 'Register Success!');
         res.redirect('/');//注册成功后返回主页
       });
     });
@@ -92,7 +92,7 @@ module.exports = function(app) {
   app.get('/login', checkNotLogin);
   app.get('/login', function (req, res) {
     res.render('login', {
-        title: '登录',
+        title: 'Login',
         user: req.session.user,
         success: req.flash('success').toString(),
         error: req.flash('error').toString()});
@@ -116,7 +116,7 @@ module.exports = function(app) {
       }
       //用户名密码都匹配后，将用户信息存入 session
       req.session.user = user;
-      req.flash('success', '登陆成功!');
+      req.flash('success', 'Login Success!');
       res.redirect('/');//登陆成功后跳转到主页
     });
   });
@@ -124,7 +124,7 @@ module.exports = function(app) {
   app.get('/post', checkLogin);
   app.get('/post', function (req, res) {
     res.render('post', {
-      title: '发表',
+      title: 'Post',
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
@@ -142,7 +142,7 @@ module.exports = function(app) {
         req.flash('error', err); 
         return res.redirect('/');
       }
-      req.flash('success', '发布成功!');
+      req.flash('success', 'Post Success!');
       res.redirect('/');//发表成功跳转到主页
     });
   });
@@ -150,14 +150,14 @@ module.exports = function(app) {
   app.get('/logout', checkLogin)
   app.get('/logout', function (req, res) {
     req.session.user = null;
-    req.flash('success', '登出成功!');
+    req.flash('success', 'Logout Success!');
     res.redirect('/');//登出成功后跳转到主页
   });
 
   app.get('/upload', checkLogin);
   app.get('/upload', function (req, res) {
     res.render('upload', {
-      title: '文件上传',
+      title: 'Upload',
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
@@ -166,7 +166,7 @@ module.exports = function(app) {
 
   app.post('/upload', checkLogin);
   app.post('/upload', function (req, res) {
-    req.flash('success', '文件上传成功!');
+    req.flash('success', 'Upload Success!');
     res.redirect('/upload');
   });
 
@@ -177,7 +177,7 @@ module.exports = function(app) {
         return res.redirect('/');
       }
       res.render('archive', {
-        title: '存档',
+        title: 'Archive',
         posts: posts,
         user: req.session.user,
         success: req.flash('success').toString(),
@@ -193,7 +193,7 @@ module.exports = function(app) {
         return res.redirect('/');
       }
       res.render('tags', {
-        title: '标签',
+        title: 'Tags',
         posts: posts,
         user: req.session.user,
         success: req.flash('success').toString(),
@@ -215,6 +215,15 @@ module.exports = function(app) {
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
       });
+    });
+  });
+
+  app.get('/links', function (req, res) {
+    res.render('links', {
+      title: 'Links',
+      user: req.session.user,
+      success: req.flash('success').toString(),
+      error: req.flash('error').toString()
     });
   });
 
@@ -287,7 +296,7 @@ module.exports = function(app) {
         return res.redirect('back');
       }
       res.render('edit', {
-        title: '编辑',
+        title: 'Edit',
         post: post,
         user: req.session.user,
         success: req.flash('success').toString(),
@@ -305,7 +314,7 @@ module.exports = function(app) {
         req.flash('error', err); 
         return res.redirect(url);//出错！返回文章页
       }
-      req.flash('success', '修改成功!');
+      req.flash('success', 'Edit Success!');
       res.redirect(url);//成功！返回文章页
     });
   });
@@ -318,7 +327,7 @@ module.exports = function(app) {
         req.flash('error', err); 
         return res.redirect('back');
       }
-      req.flash('success', '删除成功!');
+      req.flash('success', 'Delete Success!');
       res.redirect('/');
     });
   });
@@ -340,11 +349,15 @@ module.exports = function(app) {
         req.flash('error', err); 
         return res.redirect('back');
       }
-      req.flash('success', '留言成功!');
+      req.flash('success', 'Comment Success!');
       res.redirect('back');
     });
   });
 
+  app.use(function (req, res) {
+    res.render("404");
+  });
+  
   function checkLogin(req, res, next) {
     if (!req.session.user) {
       req.flash('error', '未登录!'); 
