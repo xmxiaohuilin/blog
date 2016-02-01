@@ -3,6 +3,8 @@ User = require('../models/user.js'),
 Post = require('../models/post.js'),
 Comment = require('../models/comment.js');
 
+var passport = require('passport');
+
 // var express = require('express');
 // var router = express.Router();
 
@@ -98,6 +100,16 @@ module.exports = function(app) {
         error: req.flash('error').toString()});
   });
 
+  app.get("/login/github", passport.authenticate("github", {session: false}));
+  app.get("/login/github/callback", passport.authenticate("github", {
+    session: false,
+    failureRedirect: '/login',
+    successFlash: 'Login success!'
+  }), function (req, res) {
+    req.session.user = {name: req.user.username, head: "https://gravatar.com/avatar/" + req.user._json.gravatar_id + "?s=48"};
+    res.redirect('/');
+  });
+
   app.post('/login', checkNotLogin);
   app.post('/login', function (req, res) {
       //生成密码的 md5 值
@@ -136,7 +148,7 @@ module.exports = function(app) {
   app.post('/post', function (req, res) {
     var currentUser = req.session.user,
         tags = [req.body.tag1, req.body.tag2, req.body.tag3],
-        post = new Post(currentUser.name, req.body.title, tags, req.body.post);
+        post = new Post(currentUser.name, currentUser.head, req.body.title, tags, req.body.post);
     post.save(function (err) {
       if (err) {
         req.flash('error', err); 
@@ -336,8 +348,12 @@ module.exports = function(app) {
     var date = new Date(),
         time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + 
                date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+    var md5 = crypto.createHash('md5'),
+      email_MD5 = md5.update(req.body.email.toLowerCase()).digest('hex'),
+      head = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=48"; 
     var comment = {
         name: req.body.name,
+        head: head,
         email: req.body.email,
         website: req.body.website,
         time: time,

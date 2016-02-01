@@ -10,10 +10,16 @@ var settings = require('./settings');
 var flash = require('connect-flash');
 
 var app = express();
+var fs = require('fs');
+var accessLog = fs.createWriteStream('access.log', {flags: 'a'});
+var errorLog = fs.createWriteStream('error.log', {flags: 'a'});
 
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var multer  = require('multer');
+var passport = require('passport')
+    , GithubStrategy = require('passport-github').Strategy;
+
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -22,10 +28,19 @@ app.use(flash());
 
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+// logging
+app.use(logger({stream: accessLog}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// logging 
+app.use(function (err, req, res, next) {
+  var meta = '[' + new Date() + '] ' + req.url + '\n';
+  errorLog.write(meta + err.stack + '\n');
+  next();
+});
 
 app.use(session({
   secret: settings.cookieSecret,
@@ -45,7 +60,16 @@ app.use(multer({
   }
 }));
 
+app.use(passport.initialize());
 routes(app);
+
+passport.use(new GithubStrategy({
+  clientID: "ab756b6c9097038915ee",
+  clientSecret: "57e31337c46f3818469bf2559bcaeea8164091a5",
+  callbackURL: "http://localhost:3000/login/github/callback"
+}, function(accessToken, refreshToken, profile, done) {
+  done(null, profile);
+}));
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
