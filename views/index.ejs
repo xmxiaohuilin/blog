@@ -12,20 +12,22 @@
         <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
         <% } %>
     <% }) %>
+
     <% if (post.reprint_info.reprint_from) { %>
-        <br><a href="/u/<%= post.reprint_info.reprint_from.name %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">Original Links</a>
+      <br><a href="/u/<%= post.reprint_info.reprint_from.name %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">Original Link</a>
     <% } %>
 </p>
+
 <p><%- post.post %></p>
 <p class="info">
-    Views：<%= post.pv %> |
-    Comments：<%= post.comments.length %> |
-    Reprints：
-    <% if (post.reprint_info.reprint_to) { %>
+  Views：<%= post.pv %> |
+  Comments：<%= post.comments.length %> |
+  Reprints：
+  <% if (post.reprint_info.reprint_to) { %>
     <%= post.reprint_info.reprint_to.length %>
-    <% } else { %>
+  <% } else { %>
     <%= 0 %>
-    <% } %>
+  <% } %>
 </p>
 <% }) %>
 <%- include paging %>

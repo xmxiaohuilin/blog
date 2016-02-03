@@ -23,6 +23,7 @@ User.prototype.save = function(callback) {
       email: this.email,
       head: head
   };
+  
   //打开数据库
   mongodb.open(function (err, db) {
     if (err) {
