@@ -233,7 +233,7 @@ Post.remove = function(name, day, title, callback) {
           mongodb.close();
           return callback(err);
         }
-        //如果有 reprint_from，即该文章是转载来的，先保存下来 reprint_from
+        //如果有 reprint_from，即该文章是来的，先保存下来 reprint_from
         var reprint_from = "";
         if (doc.reprint_info.reprint_from) {
           reprint_from = doc.reprint_info.reprint_from;
@@ -259,7 +259,7 @@ Post.remove = function(name, day, title, callback) {
           });
         }
 
-        //删除转载来的文章所在的文档
+        //删除来的文章所在的文档
         collection.remove({
           "name": name,
           "time.day": day,
@@ -432,7 +432,7 @@ Post.reprint = function(reprint_from, reprint_to, callback) {
         doc.name = reprint_to.name;
         doc.head = reprint_to.head;
         doc.time = time;
-        doc.title = (doc.title.search(/[转载]/) > -1) ? doc.title : "[转载]" + doc.title;
+        doc.title = (doc.title.search(/Reprint/) > -1) ? doc.title : "[Reprint]" + doc.title;
         doc.comments = [];
         doc.reprint_info = {"reprint_from": reprint_from};
         doc.pv = 0;

@@ -16,9 +16,7 @@ var passport = require('passport');
 
 
 module.exports = function(app) {
-  // app.get('/nswbmw', function (req, res) {
-  // 	res.send('hello,world!');
-  // });
+
   app.get('/', function (req, res) {
     //判断是否是第一页，并把请求的页数转换成 number 类型
     var page = parseInt(req.query.p) || 1;
@@ -28,6 +26,7 @@ module.exports = function(app) {
         posts = [];
       } 
       res.render('index', {
+        page_name:'home',
         title: 'HOME',
         posts: posts,
         page: page,
@@ -43,6 +42,7 @@ module.exports = function(app) {
   app.get('/reg', checkNotLogin);
   app.get('/reg', function (req, res) {
     res.render('reg', {
+      page_name:'reg',
       title: 'Register',
       user: req.session.user,
       success: req.flash('success').toString(),
@@ -94,6 +94,7 @@ module.exports = function(app) {
   app.get('/login', checkNotLogin);
   app.get('/login', function (req, res) {
     res.render('login', {
+        page_name:'login',
         title: 'Login',
         user: req.session.user,
         success: req.flash('success').toString(),
@@ -136,6 +137,7 @@ module.exports = function(app) {
   app.get('/post', checkLogin);
   app.get('/post', function (req, res) {
     res.render('post', {
+      page_name:'post',
       title: 'Post',
       user: req.session.user,
       success: req.flash('success').toString(),
@@ -169,6 +171,7 @@ module.exports = function(app) {
   app.get('/upload', checkLogin);
   app.get('/upload', function (req, res) {
     res.render('upload', {
+      page_name:'upload',
       title: 'Upload',
       user: req.session.user,
       success: req.flash('success').toString(),
@@ -189,6 +192,7 @@ module.exports = function(app) {
         return res.redirect('/');
       }
       res.render('archive', {
+        page_name:'home',
         title: 'Archive',
         posts: posts,
         user: req.session.user,
@@ -205,6 +209,7 @@ module.exports = function(app) {
         return res.redirect('/');
       }
       res.render('tags', {
+        page_name:'tags',
         title: 'Tags',
         posts: posts,
         user: req.session.user,
@@ -221,6 +226,7 @@ module.exports = function(app) {
         return res.redirect('/');
       }
       res.render('tag', {
+        page_name:'tags',
         title: 'TAG:' + req.params.tag,
         posts: posts,
         user: req.session.user,
@@ -230,14 +236,14 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/links', function (req, res) {
-    res.render('links', {
-      title: 'Links',
-      user: req.session.user,
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString()
-    });
-  });
+  //app.get('/links', function (req, res) {
+  //  res.render('links', {
+  //    title: 'Links',
+  //    user: req.session.user,
+  //    success: req.flash('success').toString(),
+  //    error: req.flash('error').toString()
+  //  });
+  //});
 
   app.get('/search', function (req, res) {
     Post.search(req.query.keyword, function (err, posts) {
@@ -246,6 +252,7 @@ module.exports = function(app) {
         return res.redirect('/');
       }
       res.render('search', {
+        page_name:'home',
         title: "SEARCH:" + req.query.keyword,
         posts: posts,
         user: req.session.user,
@@ -292,6 +299,7 @@ module.exports = function(app) {
       res.render('article', {
         title: req.params.title,
         post: post,
+        page_name:'home',
         user: req.session.user,
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
@@ -308,6 +316,7 @@ module.exports = function(app) {
         return res.redirect('back');
       }
       res.render('edit', {
+        page_name:'post',
         title: 'Edit',
         post: post,
         user: req.session.user,

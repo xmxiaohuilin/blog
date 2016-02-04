@@ -1,10 +1,14 @@
 <%- include header %>
-<form method='post' action='/upload' enctype='multipart/form-data' >
-  <input type="file" name='file1'/><br>
-  <input type="file" name='file2'/><br>
-  <input type="file" name='file3'/><br>
-  <input type="file" name='file4'/><br>
-  <input type="file" name='file5'/><br>
-  <input type="submit" />
-</form>
+<div class="container-fluid container-fluid-second">
+    <div class="row" style="margin-left: 5%; margin-right: 45%">
+        <form method='post' action='/upload' enctype='multipart/form-data'>
+            <input type="file" name='file1'/><br>
+            <input type="file" name='file2'/><br>
+            <input type="file" name='file3'/><br>
+            <input type="file" name='file4'/><br>
+            <input type="file" name='file5'/><br>
+            <input type="submit"/>
+        </form>
+    </div>
+</div>
 <%- include footer %>

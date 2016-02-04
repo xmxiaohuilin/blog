@@ -1,8 +1,12 @@
 <%- include header %>
-<form method="post">
-  User Name：<input type="text" name="name"/><br />
-  Password：  <input type="password" name="password"/><br />
-         <input type="submit" value="Login"/>
-</form>
-<a href = "/login/github"> Using Github Accout to Login </a>
+<div class="container-fluid container-fluid-second">
+    <div class="row" style="margin-left: 5%; margin-right: 45%">
+        <form method="post">
+            User Name：<input type="text" name="name"/><br/>
+            Password： <input type="password" name="password"/><br/>
+            <input type="submit" value="Login"/>
+        </form>
+        <a href="/login/github"> Using Github Accout to Login </a>
+    </div>
+</div>
 <%- include footer %>

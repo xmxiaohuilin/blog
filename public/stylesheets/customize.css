@@ -1,0 +1,21 @@
+.container-fluid-second {
+    margin-top: 9%;
+}
+
+.container-fluid-nav {
+    background-color: #b6d25d;
+}
+.navbar-collapse {
+    background-color: #b6d25d;
+    margin-top: 2%;
+    margin-bottom: 0.5%;
+}
+.navbar-brand {
+    margin-top: 25%;
+}
+.navbar-default a, .navbar-brand{
+    color: #222222 !important;
+}
+.search {
+    margin-top: 3%;
+}

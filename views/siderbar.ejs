@@ -1,10 +1,15 @@
-<%- include header %>
-<div class="container-fluid container-fluid-second">
-    <div class="row" style="margin-left: 5%; margin-right: 45%">
-        <ul class="archive">
+<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    <!--<div class="sidebar-module sidebar-module-inset">-->
+        <!--<h4>About</h4>-->
+        <!--<p>This is blog system practice</p>-->
+    <!--</div>-->
+
+    <div class="sidebar-module">
+        <h1>Archives</h1>
+        <ol class="list-unstyled">
             <% var lastYear = 0 %>
             <% posts.forEach(function (post, index) { %>
-            <% if(lastYear != post.time.year) { %>
+            <% if (lastYear != post.time.year) { %>
             <li><h3><%= post.time.year %></h3></li>
             <% lastYear = post.time.year } %>
             <li>
@@ -12,7 +17,7 @@
             </li>
             <li><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
             <% }) %>
-        </ul>
+        </ol>
     </div>
-</div>
-<%- include footer %>
+
+</div> <!-- /.blog-sidebar -->
