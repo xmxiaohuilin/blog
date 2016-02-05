@@ -24,9 +24,9 @@
                     </p>
 
                     <p><%- post.post %></p>
-                    <p class="info" style="margin-top: 4%; color: rgba(0, 0, 0, 0.5)">
-                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>  Views：<%= post.pv %> |
-                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>  Comments：<%= post.comments.length %> |
+                    <p class="info" style="margin-top: 4%;  color: rgba(0, 0, 0, 0.5)">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>  Views：<%= post.pv %> &nbsp;|&nbsp;
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>  Comments：<%= post.comments.length %> &nbsp;|&nbsp;
                         <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>  Reprints：
                       <% if (post.reprint_info.reprint_to) { %>
                         <%= post.reprint_info.reprint_to.length %>
