@@ -280,6 +280,7 @@ module.exports = function(app) {
           title: user.name,
           posts: posts,
           page: page,
+          page_name:'home',
           isFirstPage: (page - 1) == 0,
           isLastPage: ((page - 1) * 10 + posts.length) == total,
           user: req.session.user,

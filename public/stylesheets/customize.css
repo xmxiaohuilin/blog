@@ -3,10 +3,10 @@
 }
 
 .container-fluid-nav {
-    background-color: #b6d25d;
+    background-color: rgb(182, 210, 93);
 }
 .navbar-collapse {
-    background-color: #b6d25d;
+    background-color: rgb(182, 210, 93);
     margin-top: 2%;
     margin-bottom: 0.5%;
 }

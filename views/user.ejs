@@ -1,33 +1,43 @@
 <%- include header %>
-<% posts.forEach(function (post, index) { %>
-<p><h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
-<a href="/u/<%= post.name %>"><img src="<%= post.head %>" class="r_head"/></a>
-</p>
-<p class="info">
-    POSTED BY：<a href="/u/<%= post.name %>"><%= post.name %></a> |
-    DATE：<%= post.time.minute %> |
-    TAG：
-    <% post.tags.forEach(function (tag, index) { %>
-        <% if (tag) { %>
-        <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
-        <% } %>
-    <% }) %>
-    
-    <% if (post.reprint_info.reprint_from) { %>
-      <br><a href="/u/<%= post.reprint_info.reprint_from.name %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">Original Link</a>
-    <% } %>
-</p>
-<p><%- post.post %></p>
-<p class="info">
-  Views：<%= post.pv %> |
-  Comments：<%= post.comments.length %> |
-  Reprint：
-  <% if (post.reprint_info.reprint_to) { %>
-    <%= post.reprint_info.reprint_to.length %>
-  <% } else { %>
-    <%= 0 %>
-  <% } %>
-</p>
-<% }) %>
+<div class="container-fluid container-fluid-second">
+    <div class="row" style="margin-left: 5%; margin-right: 45%">
+        <% posts.forEach(function (post, index) { %>
+        <div class="panel panel-primary" style="padding-top: 3%">
+            <div class="panel-body" style="margin-top: -20px;">
+                <p>
+                <h2><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2>
+                <a href="/u/<%= post.name %>"><img src="<%= post.head %>" class="r_head"/></a>
+                </p>
+                <p class="info">
+                    POSTED BY：<a href="/u/<%= post.name %>"><%= post.name %></a> |
+                    DATE：<%= post.time.minute %> |
+                    TAGS：
+                    <% post.tags.forEach(function (tag, index) { %>
+                    <% if (tag) { %>
+                    <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
+                    <% } %>
+                    <% }) %>
+
+                    <% if (post.reprint_info.reprint_from) { %>
+                    <br><a href="/u/<%= post.reprint_info.reprint_from.name %>/<%= post.reprint_info.reprint_from.day %>/<%= post.reprint_info.reprint_from.title %>">Original
+                        Link</a>
+                    <% } %>
+                </p>
+                <p><%- post.post %></p>
+                <p class="info" style="margin-top: 4%; color: rgba(0, 0, 0, 0.5)">
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>  Views：<%= post.pv %> |
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>  Comments：<%= post.comments.length %> |
+                    <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>  Reprints：
+                    <% if (post.reprint_info.reprint_to) { %>
+                    <%= post.reprint_info.reprint_to.length %>
+                    <% } else { %>
+                    <%= 0 %>
+                    <% } %>
+                </p>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</div>
 <%- include paging %>
 <%- include footer %>

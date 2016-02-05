@@ -11,7 +11,7 @@
                     <p class="info">
                         POSTED BY： <a href="/u/<%= post.name %>"><%= post.name %></a> |
                         DATE：<%= post.time.minute %> |
-                        TAG：
+                        TAGS：
                         <% post.tags.forEach(function (tag, index) { %>
                             <% if (tag) { %>
                             <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
@@ -24,10 +24,10 @@
                     </p>
 
                     <p><%- post.post %></p>
-                    <p class="info">
-                      Views：<%= post.pv %> |
-                      Comments：<%= post.comments.length %> |
-                      Reprints：
+                    <p class="info" style="margin-top: 4%; color: rgba(0, 0, 0, 0.5)">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>  Views：<%= post.pv %> |
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>  Comments：<%= post.comments.length %> |
+                        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>  Reprints：
                       <% if (post.reprint_info.reprint_to) { %>
                         <%= post.reprint_info.reprint_to.length %>
                       <% } else { %>
